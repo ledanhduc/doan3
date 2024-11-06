@@ -76,6 +76,7 @@ a{
 img{
     display: block;
     width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
@@ -320,7 +321,32 @@ main #id button:hover{
     color: #fff;
     transition: 0.3s;
 }
+#id .add-device {
+    /* text-align: center;
+     */
+    display: flex; /* Bật Flexbox */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+}
 
+#id .add-device button{
+    width: max-content;
+    margin: auto auto;
+    text-decoration: none;
+    color: var(--color-dark);
+    border: 1px solid #bdb9b9;
+    padding: 5px 20px;
+    font-size: 13px;
+    background-color: transparent;
+    cursor: alias;
+    transition: 0.3s;
+    border-radius: 10px;
+}
+#id .add-device button:hover{
+    border: 1px solid #f44336;
+    background: #f44336;
+    color: #ffffff;
+    transition: 0.3s;
+}
 
 
 
@@ -708,29 +734,6 @@ main .recent-checkin a{
     main .blank-room .room-list .room{
         flex-basis: 40%;
     }
-
-    main .recent-checkin {
-        width: 94%;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        margin: 2rem 0 0 0.8rem;
-    }
-
-    main .recent-checkin table{
-        width: 83vw;
-    }
-
-    main table thead tr th:last-child,
-    main table thead tr th:first-child{
-        display: none;
-    }
-
-    main table tbody tr td:last-child,
-    main table tbody tr td:first-child{
-        display: none;
-    }
-
 }
 
 @media screen and (max-width: 768px) {
