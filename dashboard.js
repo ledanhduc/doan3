@@ -22,14 +22,15 @@ const auth = getAuth(app);
 let encodedEmail;
 const nameuser1 = document.getElementById("nameuser1");
 const avtUser1 = document.getElementById("avt_user1");
-// const id_st = document.getElementById("st_id");
-// let Id_device;
+
 
 onAuthStateChanged(auth, (user) => {  
   if (user) {
     encodedEmail = encodeURIComponent(user.email.replace(/[.@]/g, '_'));
     onValue(ref(database, `${encodedEmail}/avt_img`), (snapshot) => {
-      avtUser1.src = snapshot.val();
+      if(snapshot.val()!=null){
+        avtUser1.src = snapshot.val();
+      }
     });
     nameuser1.innerHTML = user.displayName;
     console.log(user.displayName);
@@ -45,7 +46,6 @@ onAuthStateChanged(auth, (user) => {
       remove(typeRef)
         .then(() => {
           // console.log(`Device with key ${key} deleted successfully.`);
-          // location.reload(true);
           location.reload();
         })
         .catch((error) => {
@@ -55,7 +55,21 @@ onAuthStateChanged(auth, (user) => {
 
     onValue(ref(database, `${encodedEmail}/devices`), (snapshot) => {
       const devices = snapshot.val(); // Lấy dữ liệu từ snapshot
-      // location.reload();
+      const container = document.getElementById('id'); // Thay 'container' bằng id của phần tử chứa các phần tử analyse
+
+      // //"Add Device"
+      // const addDeviceDiv = document.createElement('div');
+      // addDeviceDiv.classList.add('add-device'); //class
+      // // Tạo button "Add Device"
+      // const addDeviceButton = document.createElement('button');
+      // addDeviceButton.innerText = "Add Device";
+      // // addDeviceButton.classList.add('add-button');
+      // addDeviceButton.onclick = function() {
+      //   window.location.href = 'add_devices.html';
+      // };
+      // addDeviceDiv.appendChild(addDeviceButton); //button
+      // container.appendChild(addDeviceDiv); // Thêm vào container
+
       if(devices == null){
         const aler = document.createElement('h2');
         aler.innerText = "Add more devices - Always by your side";
@@ -71,7 +85,7 @@ onAuthStateChanged(auth, (user) => {
       // Lặp qua các khóa và giá trị trong devices
       for (const key in devices) {
           const value = devices[key];
-          
+  
           // Tạo phần tử HTML tương ứng
           const analyseDiv = document.createElement('div');
           analyseDiv.classList.add('analyse');
@@ -94,26 +108,25 @@ onAuthStateChanged(auth, (user) => {
           nameHeading.innerText = "Name Device: " + value;
 
           const typeHeading = document.createElement('h3');
-          onValue(ref(database, `${key}/type`), (snapshot) => {
-            const type = snapshot.val();
-            // console.log(type)
-            if (type === 'elic'){
-              typeHeading.id = 'id_type';
-              typeHeading.innerText = "Name Device: Electricity";
-              nameHeading.addEventListener('click', function () {
-                window.location.href = 'analytics_en.html';
-              });
-            }else if (type === 'wt') {
-              typeHeading.id = 'id_type';
-              typeHeading.innerText = "Name Device: Water";
-              nameHeading.addEventListener('click', function () {
-                window.location.href = 'w_meter_test.html';
-              });
-            }else{
-              typeHeading.id = 'id_type';
-              typeHeading.innerText = "Name Device: ";
-            }
-          });
+            onValue(ref(database, `${key}/type`), (snapshot) => {
+              const type = snapshot.val();
+              if (type === 'elic'){
+                typeHeading.id = 'id_type';
+                typeHeading.innerText = "Name Device: Electricity";
+                nameHeading.addEventListener('click', function () {
+                  window.location.href = 'analytics_en.html';
+                });
+              }else if (type === 'wt') {
+                typeHeading.id = 'id_type';
+                typeHeading.innerText = "Name Device: Water";
+                nameHeading.addEventListener('click', function () {
+                  window.location.href = 'w_meter_test.html';
+                });
+              }else{
+                typeHeading.id = 'id_type';
+                typeHeading.innerText = "Name Device: ";
+              }
+            });
 
           const deleteButton = document.createElement('button');
           deleteButton.innerText = 'Delete';
@@ -133,9 +146,21 @@ onAuthStateChanged(auth, (user) => {
           analyseDiv.appendChild(presentDiv);
   
           // Thêm phần tử HTML vào vị trí mong muốn trong trang web
-          const container = document.getElementById('id'); // Thay 'container' bằng id của phần tử chứa các phần tử analyse
           container.appendChild(analyseDiv);
       }
+    
+      //"Add Device"
+      const addDeviceDiv = document.createElement('div');
+      addDeviceDiv.classList.add('add-device'); //class
+      // Tạo button "Add Device"
+      const addDeviceButton = document.createElement('button');
+      addDeviceButton.innerText = "Add Device";
+      // addDeviceButton.classList.add('add-button');
+      addDeviceButton.onclick = function() {
+        window.open('add_devices.html', '_blank');
+      };
+      addDeviceDiv.appendChild(addDeviceButton); //button
+      container.appendChild(addDeviceDiv); // Thêm vào container
 
     });
   }
