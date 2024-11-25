@@ -31,6 +31,12 @@ add.addEventListener('click', function() {
       // set(ref(database, `${encodedEmail}/nameuser`), nameuser.value);
       set(databaseRef(database, `${encodedEmail}/devices/${id_devices.value}`), id_name.value);
       set(databaseRef(database, `${id_devices.value}/type`), selectElement.value);
+      if(selectElement.value === "wt"){
+        set(databaseRef(database, `${id_devices.value}/cap`), false);
+        set(databaseRef(database, `${id_devices.value}/h_daily`), 0);
+        set(databaseRef(database, `${id_devices.value}/m_daily`), 30);
+        set(databaseRef(database, `${id_devices.value}/day_mthly`), 10);
+      }
       // console.log(selectElement.value)
       alert("Add Devices successfully")
 
