@@ -2,24 +2,14 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebas
 import { getDatabase, ref, onValue, remove } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyBsUW2NzEFYcgc32BN0yWdbFKUKxSvgmdI",
-//   authDomain: "sendopt-20057.firebaseapp.com",
-//   databaseURL: "https://sendopt-20057-default-rtdb.asia-southeast1.firebasedatabase.app",
-//   projectId: "sendopt-20057",
-//   storageBucket: "sendopt-20057.appspot.com",
-//   messagingSenderId: "160375474039",
-//   appId: "1:160375474039:web:cff60b027beaf046194372"
-// };
-
 import firebaseConfig from './firebaseConfig.js';
-
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth(app);
 
 let encodedEmail;
+// document.addEventListener('DOMContentLoaded', () => {
 const nameuser1 = document.getElementById("nameuser1");
 const avtUser1 = document.getElementById("avt_user1");
 
@@ -108,25 +98,25 @@ onAuthStateChanged(auth, (user) => {
           nameHeading.innerText = "Name Device: " + value;
 
           const typeHeading = document.createElement('h3');
-            onValue(ref(database, `${key}/type`), (snapshot) => {
-              const type = snapshot.val();
-              if (type === 'elic'){
-                typeHeading.id = 'id_type';
-                typeHeading.innerText = "Name Device: Electricity";
-                nameHeading.addEventListener('click', function () {
-                  window.location.href = 'analytics_en.html';
-                });
-              }else if (type === 'wt') {
-                typeHeading.id = 'id_type';
-                typeHeading.innerText = "Name Device: Water";
-                nameHeading.addEventListener('click', function () {
-                  window.location.href = 'w_meter_test.html';
-                });
-              }else{
-                typeHeading.id = 'id_type';
-                typeHeading.innerText = "Name Device: ";
-              }
-            });
+          onValue(ref(database, `${key}/type`), (snapshot) => {
+            const type = snapshot.val();
+            if (type === 'elic'){
+              typeHeading.id = 'id_type';
+              typeHeading.innerText = "Name Device: Electricity";
+              // nameHeading.addEventListener('click', function () {
+              //   window.location.href = 'analytics_en.html';
+              // });
+            }else if (type === 'wt') {
+              typeHeading.id = 'id_type';
+              typeHeading.innerText = "Name Device: Water";
+              // nameHeading.addEventListener('click', function () {
+              //   window.location.href = 'w_meter_test.html';
+              // });
+            }else{
+              typeHeading.id = 'id_type';
+              typeHeading.innerText = "Name Device: ";
+            }
+          });
 
           const deleteButton = document.createElement('button');
           deleteButton.innerText = 'Delete';
@@ -144,11 +134,23 @@ onAuthStateChanged(auth, (user) => {
           statusDiv.appendChild(infoDiv);
           presentDiv.appendChild(statusDiv);
           analyseDiv.appendChild(presentDiv);
+
+          // Thêm sự kiện click vào analyseDiv để chuyển trang
+          analyseDiv.addEventListener('click', function() {
+            if (typeHeading.innerText === "Name Device: Electricity") {
+              // window.location.href = 'analytics_en.html';
+              window.location.href = `statistics_e.html?id=${key}`;
+            } else if (typeHeading.innerText === "Name Device: Water") {
+              window.location.href = `w_meter_test.html?id=${key}`;
+            } else {
+              alert("This device type is not defined.");
+            }
+          });
   
           // Thêm phần tử HTML vào vị trí mong muốn trong trang web
           container.appendChild(analyseDiv);
-      }
-    
+        }
+
       //"Add Device"
       const addDeviceDiv = document.createElement('div');
       addDeviceDiv.classList.add('add-device'); //class
@@ -165,7 +167,7 @@ onAuthStateChanged(auth, (user) => {
     });
   }
 });
-
+// });
 // function handleIdDeviceUpdate(value) {
 
 // }
