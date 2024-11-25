@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
       Contact: isEnglish ? 'Contact' : 'Liên hệ',
       Welcome: isEnglish ? 'Welcome' : 'Xin chào',
       eyn: isEnglish ? 'Everything you need is ready © EVS' : 'Tất cả những gì bạn cần đã sẵn sàng © EVS',
-      FollowUs: isEnglish ? 'Follow Us' : 'Theo dõi chúng tôi',
+      FollowUs: isEnglish ? 'Follow Us' : 'Theo dõi chúng tôi tại',
       Password: isEnglish ? 'Password' : 'Mật khẩu',
       SignIn: isEnglish ? 'Sign In' : 'Đăng nhập',
       // rmb_ac: isEnglish ? 'Remember me' : 'Khóa',
