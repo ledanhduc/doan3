@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-import { getDatabase, ref, set, onValue, onChildAdded, child, orderByChild, startAt, endAt, get, remove } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
+// import { getDatabase, ref, set, onValue, onChildAdded, child, orderByChild, startAt, endAt, get, remove } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
+import { getDatabase, ref, set, onValue, remove } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 
 
@@ -10,6 +11,9 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth(app);
 
+const currentUrl = window.location.href;
+const idDevice = new URLSearchParams(window.location.search).get('id');
+
 let encodedEmail;
 const nameuser1 = document.getElementById("nameuser1");
 const avtUser1 = document.getElementById("avt_user1");
@@ -19,23 +23,25 @@ const butt_nos = document.getElementById("butt_nos");
 // let cur_nos = 40;
 // let cur_nos;
 
-let Id_device;
+// let Id_device;
 onAuthStateChanged(auth, (user) => {
   if (user) {
     encodedEmail = encodeURIComponent(user.email.replace(/[.@]/g, '_'));
     onValue(ref(database, `${encodedEmail}/avt_img`), (snapshot) => {
-      avtUser1.src = snapshot.val();
+      if(snapshot.val()!=null){
+        avtUser1.src = snapshot.val();
+      }
     });
     nameuser1.innerHTML = user.displayName;
     // console.log(user.displayName);
 
-    onValue(ref(database, `${encodedEmail}/Id_Device`), (snapshot) => {
-      Id_device = snapshot.val();
-      handleIdDeviceUpdate(Id_device);
-      // butt_nos.addEventListener('click', function() {
-      //   set(ref(database, `${Id_device}/fre_nos`), nos.value)
-      // });
-      
+    onValue(ref(database, `${encodedEmail}/devices`), (snapshot) => {
+      const devices = snapshot.val(); // Các thiết bị của người dùng
+      if (devices && devices[idDevice]) { // Kiểm thiết bị tồn tại không
+        handleIdDeviceUpdate(idDevice); //cập nhật thông tin thiết bị
+      } else {
+        alert("Device not found.");
+      }
     });
   }
 });
@@ -52,11 +58,14 @@ let myChart; // Khai báo biến myChart ở ngoài hàm để lưu trữ biểu
 
 butt_nos.addEventListener('click', function() {
   const fre_nosValue = nos.value;
-  set(ref(database, `${Id_device}/fre_nos`), fre_nosValue);
+  set(ref(database, `${idDevice}/fre_nos`), fre_nosValue);
   location.reload()
 });
 
 function handleIdDeviceUpdate(value) {
+
+  updateLinkHrefs(pageLinks_e, currentUrl, idDevice, value);
+
   console.log(value);
   // console.log(nos.value);
   
@@ -119,8 +128,7 @@ function handleIdDeviceUpdate(value) {
         datasets: [{
           label: 'Công suất',
           data: powerData,
-          borderColor: 'rgba(75, 192, 192, 1)',
-          // borderColor: '#5099c4',
+          borderColor: 'rgba(75, 192, 192, 1)', // Màu đường biên
           borderWidth: 1,
           fill: false
         }]
@@ -129,7 +137,7 @@ function handleIdDeviceUpdate(value) {
         plugins: {
           title: {
             display: true,
-            text: 'Biểu đồ công suất',
+            text: `ID: ${idDevice} - kWH`, // Tiêu đề chính
             align: 'center',
             font: {
               size: 16
@@ -137,7 +145,7 @@ function handleIdDeviceUpdate(value) {
           },
           legend: {
             position: 'chartArea',
-            align: 'start', 
+            align: 'start',
             labels: {
               usePointStyle: true
             }
@@ -145,13 +153,13 @@ function handleIdDeviceUpdate(value) {
         },
         scales: {
           x: {
-            grid:{
-              color: '#DADBDF'
+            grid: {
+              color: '#DADBDF' // Màu lưới trục x
             }
           },
           y: {
-            grid:{
-              color: '#DADBDF'
+            grid: {
+              color: '#DADBDF' // Màu lưới trục y
             },
             beginAtZero: true
           }
@@ -226,7 +234,7 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     const uid = user.uid;
   } else {
-    window.location.replace("login_en.html")
+    window.location.replace("login.html")
   }
 });
 

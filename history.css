@@ -11,7 +11,7 @@
     --color-gardient: linear-gradient(135deg, #00feba 0%, #5099c4 70%);
     /* --color-dark: #363949; */
     --color-dark: #000;
-    --color-dark_1: #000;
+    --color-dark1: #555;
     --color-light: rgba(132, 139, 200, 0.18);
     --color-dark-variant: #677483;
     --color-background: #f6f6f9;
@@ -30,6 +30,7 @@
     --color-background: #181a1e;
     --color-white: #202528;
     --color-dark: #edeffd;
+    --color-dark1:#ffffffa2;
     --color-dark-variant: #a3bdcc;
     --color-light: rgba(0, 0, 0, 0.4);
     --box-shadow: 0 2rem 3rem var(--color-light);
@@ -307,6 +308,8 @@ td{
     text-align: center;
     /* margin-left: 20px; */
     /* padding-left: 50px */
+    background: var(--color-white);
+    
 }
 th {
     /* position: sticky; */

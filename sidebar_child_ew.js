@@ -8,11 +8,8 @@ const sidebarHTML = `
         <span class="material-icons-sharp">person_outline</span>
         <h3>Users</h3>
     </a>
-    <a id="ref_history" href="#">
-        <span class="material-icons-sharp">history</span>
-        <h3>History</h3>
     </a>
-    <a id="ref_analytics" href="#">
+    <a id="ref_statistics" href="#">
         <span class="material-icons-sharp">inventory</span>
         <h3>Statistics</h3>
         <span class="message-count" id="st_cir"><br></span>
@@ -21,7 +18,7 @@ const sidebarHTML = `
         <span class="material-icons-sharp">touch_app</span>
         <h3>Control</h3>
     </a>
-    <a id="ref_statistics" href="#">
+    <a id="ref_analytics" href="#">
         <span class="material-icons-sharp">insights</span>
         <h3>Analytics</h3>
     </a>

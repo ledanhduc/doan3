@@ -10,25 +10,27 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth(app);
 
+const idDevice = new URLSearchParams(window.location.search).get('id');
+
 let encodedEmail;
 
-let Id_device;
+// let Id_device;
 var curenergy;
 onAuthStateChanged(auth, (user) => {
   if (user) {
     encodedEmail = encodeURIComponent(user.email.replace(/[.@]/g, '_'));
-    onValue(ref(database, `${encodedEmail}/Id_Device`), (snapshot) => {
-      Id_device = snapshot.val();
-      const curenergyRef = ref(database, `${Id_device}/Energy`);
-      onValue(curenergyRef, (snapshot) => {
-        curenergy = snapshot.val();
-        handleIdDeviceUpdate(Id_device, curenergy);
-      });
-      console.log(curenergy)
-      const chartEnergyRef = ref(database, `${Id_device}/chart_energy`);
-      onValue(chartEnergyRef, (snapshot) => {
-        handleIdDeviceUpdate(Id_device, curenergy);
-      });
+    onValue(ref(database, `${encodedEmail}/devices`), (snapshot) => {
+      const devices = snapshot.val(); // Các thiết bị của người dùng
+        if (devices && devices[idDevice]) {
+          const curenergyRef = ref(database, `${idDevice}/Energy`);
+          onValue(curenergyRef, (snapshot) => {
+            curenergy = snapshot.val();
+            handleIdDeviceUpdate(idDevice, curenergy);
+          });
+          console.log(curenergy)
+        } else {
+          alert("Device not found.");
+        }
     });
   }
 });
@@ -84,7 +86,7 @@ function handleIdDeviceUpdate(value, curenergy) {
           plugins: {
             title: {
               display: true,
-              text: `ID: ${Id_device} - kWH`,
+              text: `ID: ${idDevice} - kWH`,
               align: 'end',
               font: {
                 size: 16
@@ -118,7 +120,7 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     const uid = user.uid;
   } else {
-    window.location.replace("login_en.html")
+    window.location.replace("login.html")
   }
 });
 

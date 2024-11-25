@@ -9,8 +9,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="w_meter_test.css">
-    <title>Control | ELS</title>
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@100;200;300;400;600;700&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="statistics_e.css">
+    <title>Analytics | ELS</title>
 </head>
 
 <body>
@@ -31,8 +32,8 @@
                 </div>
             </div>
 
-            <div class="sidebar">
-                <a id="ref_dashboard" href="#">
+            <div class="sidebar" id="sidebar-container">
+                <!-- <a id="ref_dashboard" href="#">
                     <span class="material-icons-sharp">
                         dashboard
                     </span>
@@ -55,6 +56,7 @@
                         insights
                     </span>
                     <h3>Analytics</h3>
+                    <span class="message-count" id="st_cir"><br></span>
                 </a>
                 <a id="ref_control" href="">
                     <span class="material-icons-sharp">
@@ -91,48 +93,186 @@
                         logout
                     </span>
                     <h3>Logout</h3>
-                </a>
+                </a> -->
             </div>
         </aside>
 
         <main>
-            <h1>Water - demo</h1>
+            <div style="display: inline-flex;">
+                <h1 id="st_id" ></h1>
+                <!-- <div class="st_cir" id="st_cir"></div> -->
+            </div>
             <div class="analyse">
-                <div class="Temperature">
+                <div class="Present">
                     <div class="status">
+                        <!-- <div class="info">
+                            <h3>Total</h3>
+                            <h1 id="tot_pre"></h1>
+                        </div> -->
+                        <!-- <div class="info-pre"> -->
                         <div class="info">
-                            <div id="img1"></div>
-                            <h3>Ngày 11 hàng tháng</h3>
+                            <h3 id="Voltage">Voltage</h3>
+                            <h1 id="pre"> </h1>
+                        </div>
+                        <!-- <div class="temp_cir" id="num_pre" style="--clr-pre:#0072c6; --num_pre:250; --tot_pre: 220; --dot_pre: 1deg;"> -->
+                        <div class="temp_cir" id="num_pre" style="--clr-pre:#0072c6; --num_pre:250; --tot_pre: 220; ">
+                            <div class="dot1" style=""></div>
+                            <svg>
+                              <circle cx="46" cy="46" r="38"></circle>
+                              <circle cx="46" cy="46" r="38" class="pre"></circle>
+                            </svg>
+                            <div class="percentage">
+                              <p id="pre1"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="Temperature">
                     <div class="status">
                         <div class="info">
-                            <div id="img2"></div>
-                            <h3>Hiện tại</h3>
+                            <h3 id="Frequency">Frequency</h3>
+                            <h1 id="temp"></h1>
+                        </div>
+                        <div class="temp_cir" id="num_temp" style="--clr-temp:#17c943; --num_temp:100;">
+                            <div class="dot"></div>
+                            <svg>
+                              <circle cx="46" cy="46" r="38"></circle>
+                              <circle cx="46" cy="46" r="38" class="temp"></circle>
+                            </svg>
+                            <div class="percentage">
+                              <p id="temp1"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="Temperature">
+                <div class="Humidity">
                     <div class="status">
                         <div class="info">
-                            <div id="img3"></div>
-                            <h3>Ngày 10 hàng tháng</h3>
+                            <h3 id="Current">Current</h3>
+                            <h1 id="humi"></h1>
+                        </div>
+                        <div class="temp_cir" id="num_humi" style="--clr-humi:#ff7f0e; --num_humi:10;">
+                            <div class="dot2"></div>
+                            <svg>
+                              <circle cx="46" cy="46" r="38"></circle>
+                              <circle cx="46" cy="46" r="38" class="humi"></circle>
+                            </svg>
+                            <div class="percentage">
+                              <p id="humi1"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
+                <div class="Power">
+                    <div class="status">
+                        <div class="info">
+                            <h3 id="Power">Power</h3>
+                            <h1 id="power"></h1>
+                        </div>
+                        <div class="temp_cir" id="num_power" style="--clr-power:#17c943; ">
+                            <!-- <div class="dot3"></div> -->
+                            <svg>
+                              <circle cx="46" cy="46" r="38"></circle>
+                              <circle cx="46" cy="46" r="38" class="power"></circle>
+                            </svg>
+                            <div class="percentage">
+                              <p id="power1"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Energy">
+                    <div class="status">
+                        <div class="info">
+                            <h3 id="Energy">Energy</h3>
+                            <h1 id="energy"></h1>
+                        </div>
+                        <div class="temp_cir" id="num_energy" style="--clr-energy: #6495ed; --num_day:0; ">
+                            <div class="dot4"></div>
+                            <svg>
+                              <circle cx="46" cy="46" r="38"></circle>
+                              <circle cx="46" cy="46" r="38" class="energy"></circle>
+                            </svg>
+                            <div class="percentage">
+                              <p id="energy1"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="eom">
+                    <div class="status">
+                        <div class="info">
+                            <h3 id="Eom">Energy of Month</h3>
+                            <h1 id="eom"></h1>
+                        </div>
+                        <div class="temp_cir" id="num_eom" style="--clr-eom: #e12416;">
+                            <!-- <div class="dot5"></div> -->
+                            <svg>
+                              <circle cx="46" cy="46" r="38"></circle>
+                              <circle cx="46" cy="46" r="38" class="eom"></circle>
+                            </svg>
+                            <div class="percentage">
+                              <p id="eom1"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blank-room">
+                <!-- <h2>Daily Energy Chart </h2>
+                <span class="material-symbols-outlined">
+                    open_in_new
+                </span> -->
+                <div class="room-list">
+                    <!-- <div class="room">
+                        <img src="img/iotlab.png">
+                        <h2>TT IoT</h2>
+                        <p>C302</p>
+                    </div>
+                    <div class="room">
+                        <img src="img/foodlab.png">
+                        <h2>TN Chemistry  1 </h2>
+                        <p>A4-303</p>
+                    </div>
+                    <div class="room">
+                        <img src="img/classroom.png">
+                        <h2>Theory</h2>
+                        <p>A2-202</p>
+                    </div> -->
+                    <!-- <div class="room">
+                        <span class="material-symbols-outlined">
+                            expand_circle_down
+                        </span>
+                        <h2>More</h2>
+                    </div> -->
+                    <a href="chart_col.html" id="ref_chart" target="_blank"> 
+                        <h2 id="Ecd"> Energy chart daily </h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M5,2 L7,2 C7.55228475,2 8,2.44771525 8,3 C8,3.51283584 7.61395981,3.93550716 7.11662113,3.99327227 L7,4 L5,4 C4.48716416,4 
+                            4.06449284,4.38604019 4.00672773,4.88337887 L4,5 L4,19 C4,19.5128358 4.38604019,19.9355072 4.88337887,19.9932723 L5,20 L19,20 C19.5128358,20 
+                            19.9355072,19.6139598 19.9932723,19.1166211 L20,19 L20,17 C20,16.4477153 20.4477153,16 21,16 C21.5128358,16 21.9355072,16.3860402 21.9932723,16.8833789 
+                            L22,17 L22,19 C22,20.5976809 20.75108,21.9036609 19.1762728,21.9949073 L19,22 L5,22 C3.40231912,22 2.09633912,20.75108 2.00509269,19.1762728 L2,19 L2,5 
+                            C2,3.40231912 3.24891996,2.09633912 4.82372721,2.00509269 L5,2 L7,2 L5,2 Z M21,2 L21.081,2.003 L21.2007258,2.02024007 L21.2007258,2.02024007 
+                            L21.3121425,2.04973809 L21.3121425,2.04973809 L21.4232215,2.09367336 L21.5207088,2.14599545 L21.5207088,2.14599545 L21.6167501,2.21278596 
+                            L21.7071068,2.29289322 L21.7071068,2.29289322 L21.8036654,2.40469339 L21.8036654,2.40469339 L21.8753288,2.5159379 L21.9063462,2.57690085 L21.9063462,2.57690085 
+                            L21.9401141,2.65834962 L21.9401141,2.65834962 L21.9641549,2.73400703 L21.9641549,2.73400703 L21.9930928,2.8819045 L21.9930928,2.8819045 L22,3 L22,3 
+                            L22,9 C22,9.55228475 21.5522847,10 21,10 C20.4477153,10 20,9.55228475 20,9 L20,5.414 L13.7071068,11.7071068 C13.3466228,12.0675907 12.7793918,12.0953203 
+                            12.3871006,11.7902954 L12.2928932,11.7071068 C11.9324093,11.3466228 11.9046797,10.7793918 12.2097046,10.3871006 L12.2928932,10.2928932 L18.584,4 L15,4 
+                            C14.4477153,4 14,3.55228475 14,3 C14,2.44771525 14.4477153,2 15,2 L21,2 Z"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
 
             <div class="recent-checkin">
-                <h2>Attendance </h2>
+                <h2>Fee sheet </h2>
                 <table>
                     <thead>
                         <tr>
-                            <th>Full Name</th>
-                            <th>ID</th>
-                            <th>Input</th>
+                            <th>Tariff </th>
+                            <th>EC-kWh</th>
+                            <th>Fee-đ/kWh</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
@@ -161,7 +301,8 @@
                 </div>
 
                 <div>
-                    <a href="control_vi.html" class="lang">En</a>
+                    <!-- <a href="analytics_vi.html" class="lang">En</a> -->
+                    <h3 id="langBtn" class="lang">Vi</h3> 
                 </div>
 
                 <div class="profile">
@@ -170,7 +311,7 @@
                         <small class="text-muted">User</small>
                     </div>
                     <div class="profile-photo">
-                        <img src="images/profile-1.jpg" id="avt_user1">
+                        <img src="images/ute_avt.jpeg" id="avt_user1">
                     </div>
                 </div>
 
@@ -257,8 +398,8 @@
                 </div>
             </div>
 
-            <div class="reminders">
-                <div class="header">
+            <div class="reminders" id="sidebar-reminders">
+                <!-- <div class="header">
                     <h2>Reminders</h2>
                     <span class="material-icons-sharp">
                         notifications_none
@@ -310,7 +451,7 @@
                         </span>
                         <h3>Respond</h3>
                     </div>
-                </div>
+                </div> -->
 
             </div>
 
@@ -318,39 +459,23 @@
 
 
     </div>
-
-    <script type="module" src="weather_3.js" ></script>
-    <script src="orders.js"></script>
+    
+    <!-- <script src="sidebar_nav.js"></script> -->
+    <script src="weather_3.js" type="module"></script>
+    <script src="sidebar_child_ew.js"></script>
+    <script src="sidebar_reminders.js"></script>
+    <script src="statistics_e.js" type="module"></script>
+    <!-- <script src="orders.js"></script> -->
     <script src="index_2.js"></script>
     <script src="href.js"></script>
-    <script type="module" src="toggle_control_en.js"></script>
-    <script type="module" src="logout.js"></script>
-
-
+    <script src="href_e.js"></script>
+    <script src="redirecting_e.js"></script>
+    <script src="./trans/translate.js"></script>
+    <script src="./trans/translate_statistics_e.js"></script>
+    <script src="logout.js" type="module"></script>
 
     <script>
-        // Chuỗi Base64 của ảnh
-        var base64String = "%2F9j%2F4AAQSkZJRgABAQEAAAAAAAD%2F2wBDAAoHCAkIBgoJCAkLCwoMDxkQDw4ODx8WFxIZJCAmJiQgIyIoLToxKCs2KyIjMkQzNjs9QEFAJzBHTEY%2FSzo%2FQD7%2F2wBDAQsLCw8NDx0QEB0%2BKSMpPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj7%2FxAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv%2FxAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5%2Bjp6vHy8%2FT19vf4%2Bfr%2FxAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv%2FxAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4%2BTl5ufo6ery8%2FT19vf4%2Bfr%2FwAARCAB4AKADASEAAhEBAxEB%2F9oADAMBAAIRAxEAPwDzj%2BH%2BdJuxUMxDPSnmT92FxxUjE34BpyS46UNDuTxy4Na9lfCMdelc9WIGnJrH7rrWLe3fmVjTgLcyZXqAtXdYqxGT70mTVAxKTNMQuelKGpCDfTTIaBk2f%2F103dTATOaCaQw3cY9aXd60WJY4SVKk%2BO9JxBj%2FALT78VC02TSURkRemZq7AJupN1OwBSZ7UIA7UmaLAJnimk0WA7k2lqf%2BXSD%2FAL9LR9ktcf8AHpb%2FAPfpa81t33JTY8Wlr%2Fz523%2FfpaDZ2n%2FPpb%2F9%2BlrPmZd2RtbWoP8Ax6W%2F%2FflajMFr%2FwA%2Blv8A9%2Blq02A9IrT%2FAJ87b%2FvytW447L%2FnytP%2B%2FC1Lb7juTeVY%2FwDPhZ%2F%2BA6VE8Nl%2Fz42f%2FfhKlSfcV2VXt7P%2FAJ9Lb%2FvytV2gtf8An1t%2F%2B%2FS1onIfMM%2Bz2p62sH%2FfpaBbW3a2g%2F79LV3fcVyeKxtj%2FwAutv8A9%2BlrRi0q1b%2Flytv%2B%2FK1PMybsS40q0Qf8edsP%2B2K1j3NrbKf%2BPa3%2FAO%2FS1cWyLsoyQwf88If%2B%2FYqu0cX%2FADxi%2FwC%2BBWyY7s6il59fzrjY0PHvQRUlkL1TYnFaRRIm6nq5%2FGmBIJ%2FepDJ6UrDRDI%2F51AWq4jEVzngmpkokIuwHmti0nWLB4%2FGsSSLULoSc8D6Vzt0%2FWt4kGc5qBq2SKOkpwrkbGSDFPqPUaIJBVV1qosCI0grQodS9OtSBGxqLI3DdkDPOBnFaBZne%2BH%2FBGk6zB50GvtcL%2FEkdv5brVHxXpWkeHbyGzgNzdTFd8nmSgbfSo1vYx53zctjAM8e4GKPyh6bi1SC5OKRRXmucis%2BR81rASIGqJq1QzoakQ8VySK3JFqysLsKyZdrki2DSHap5praWO7nPtUc9ilAjSxiI6U77EgH3ajnbNVFCfZFH8IqN4FB%2FhFHMBDJb1Tktu3etoVLGckRRi4tpRLbySQyL0kjba1FzPcXNy893K800n3nfqa6eZMi2tyFm24pPNqrEEbPUJb0qwGE1EaoGdD2p6GuSSAmX%2BE%2BvT3rUtG3W6H%2BdYTNIGla6dfXnNmg2d5GOBWvF4bLqBcXscLZ5aP5uK5pTNCzd6PoTSxJ9qu%2FPOE%2FdlcuaRPCcCTE3F47p2RFwaxlVa6BzWLX9laZD9yzQ%2FwDXU76cYbeON1htreMOMMEjC5rPnZlzMxLvQbCbPlo8DeqPmuZ1LRbmzy%2BPNjH8aCuuEyoyMqON5CcLkCiS2l%2F55%2FqK6kwZl3a7PzqrurshqQxpambvetRDSaYTzT8xG%2FnvTw3TrXJIC79umbT47N5MwxsWRf7pNb3hWzgu4pZbhjsifGz14rnrPQuBt6hq4tcJHhVrGbVLq9uFt7PdLO%2FRFrm5bGp2OhaCunq1xcyebfkfM3ZB6VU1bxDBaHy4AJpPY8Vyx%2FfTMpO5mxT%2BINQP7izOP%2B%2BRVtNO8TBctaxN%2FwBvABrr9nBGLqxRHJNdWjBdQtZYO2XHFTZSReKzlHlNNzC1CxWHLxD5T1ArJkX2raEtCzF1xR9iJHGGBrny3pXoYfWBIm6mZ9K6RBuqMmnYZv5HX0pwauawiVWPetfRb%2FyPPTP3sHFYVI6GiG6jeed8oyxPAFek%2BCdC%2FsfRxcyR%2BbeXA3P0yB2FcGJdocpMmVvFGsyS3X9nWA5Jw59as6B4chiH2i5%2FeOf4m6minDkhY56krI6MQJHDIkTeXuHX0qIxy7ebwDv09811wnFdDi5X3LJ8qWE52PE3B7g1y2saQLXMumnhesdZM6IztIysrNDj1rmbmPy5WjPVayidqMXVl3WUwHYZ%2FLmuVJr1ML8IMTdTc11koQmmE0Ab2cinBuKwYDt1SwysJPkGTtrOSK6m%2FwCBbP8AtPxXCLgZjhzIf6CvWPEN%2FwD2bpEkqsFZv3cfsa8vE61UjOpucZ4VgSSbzp8BnPf0rtNTiiv7RbdWTaHRueM4PStXvc56nxFKTSw8ty32qP8AfY%2Fg9PL4qyLGPzRIZYv%2BPfyP9Xz3q%2BcnmFvY7BdGW0lciFNowg5OKo2d%2FGkDQWlhlGLHDuqn5iTilq0JXZgXkElpdHepVJvnUZrn9a4kjl9flrL7R2xdzBvPmjdc%2FeUiuTY816WF2LYzNNzXYSIabmgDc9cUuaxerFqO3VLayKtymfpWUtijs%2FAjiC9v5f4vlX%2BdbPiS8842drnhmeQj6CvMteqEyrYSLHMiZkyegUV2Fh9mnG3%2FAErcBzvGMVvNHJMnjbTHuDAJf3o4K7iPSrv2W2%2FuH%2Fvs1i%2BZGNynqUUMcAMca5z%2FABgvXPtqUn2%2Ba0%2Bzq8aZRSOTxnFUjopQ5lJsXXm8zT7R%2B4bbz9K47Xjtsc56ODS%2B0aw%2BE5yaYfZxLz1xXNP1r2oUVCJFOo6m5GTTc1ZuhM03NMRtbsn2ozWO24txS1COEYe1TYo67w7ceVcXi55Ow%2FzrQ1CfN7Zueg3L%2BYrzHpIcx6uv2uBflOT%2FABDNdJatOxaKEvGG5%2BUbfatTlZykWgarH4pa4fcIzJkyce1elwTFYFDdcVNV82xMyC6vP%2BWarvz19BWO8W6dVQCPIGd3tzUrQFoGqPHLaptYFQexrhvFrBdPRepaT%2BhqUr1LHTD4TldQmNzCZPKxu75rHbI4NexTpuEdSYyUtiM03NamgmabmgRr7u1JmsxWDPHek3c1AzodKuSLtOeZ05%2FnWtLPlPUivMrL3jQs2d3lxIPu%2BlaH9p%2BWsl1P5rI3UcbQMVp5mMIc8uU0dM1WAiNkbZGwOVbtgVZOqF5tqzRq3O1Mg7uKmxn7N3KF0qXsjlyUaU7Sy%2BuKXTfMj8pTLuWMZBI7GlY05%2Fc5Bup3qkhFNcL4mvvMvFgB4iHP1NTR1mWlYwHlzHs%2FhqjN9%2BvYjJvQiMFHYhpM1ZQlMzQhmrupN3pUEibu9JmlYaRe3v8AZYnU4ZelasF8Jog%2F5%2BxrirQuWSx3ghk4JK963NOu8%2FcYbW7Hvxisl5kSVtTQ2mCCRolUsf4RwB2JqlJFBcyedGMSZ%2BXHQtjOaLChUcDVQIYP35OM7hvPSsu91iOOMW9of3a%2B9TImK1Ma81UQW7OzZb%2BH61yks7ysXd9xPetcLTt7zNmQFqglPzV6EREVMzWhKCm5oGaR603tUEBmjPFBRYhc%2BQVpscrQN8vTvWXL0KLYnBHWpbfUJLfpyvoawdO49zWtvFDIuGUn8M1O3is9I4%2BvfbWfs5k8iM671u4u%2Fvsdv92qb3wT7x5o9kVojJurppn56VErV3KFlYkC1RvVJAR03NWISkpjP%2F%2FZ"
-        // Tạo một đối tượng hình ảnh mới
-        var img1 = new Image();
-        var img2 = new Image();
-        var img3 = new Image();
-    
-        // Đặt nguồn ảnh là chuỗi Base64
-        img1.src = "data:image/png;base64," + base64String;
-        img2.src = "data:image/png;base64," + base64String;
-        img3.src = "data:image/png;base64," + base64String;
-    
-        // Thêm hình ảnh vào phần tử div có id "image-container"
-        var imageContainer1 = document.getElementById("img1");
-        var imageContainer2 = document.getElementById("img2");
-        var imageContainer3 = document.getElementById("img3");
-        imageContainer1.appendChild(img1);
-        imageContainer2.appendChild(img2);
-        imageContainer3.appendChild(img3);
-                // var img2 = new Image();
-        // img2.src = "data:image/jpeg;base64,%2F9j%2F4AAQSkZJRgABAQEAAAAAAAD%2F2wBDAAoHCAkIBgoJCAkLCwoMDxkQDw4ODx8WFxIZJCAmJiQgIyIoLToxKCs2KyIjMkQzNjs9QEFAJzBHTEY%2FSzo%2FQD7%2F2wBDAQsLCw8NDx0QEB0%2BKSMpPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj7%2FxAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv%2FxAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5%2Bjp6vHy8%2FT19vf4%2Bfr%2FxAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv%2FxAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4%2BTl5ufo6ery8%2FT19vf4%2Bfr%2FwAARCAB4AKADASEAAhEBAxEB%2F9oADAMBAAIRAxEAPwClNeAnrToHzzXjMzLYcUhkoLQ3zBTfNFAxfNFJ5tSMQyimmUUAMMwqMzD1pgRmUVC04qkgI2lXFQtMPWtUiSJpveojKK05SCIyVE0gq7CZY%2B0ktV62uuOoqJwLNOBml6UlwXiPNc9iii9371GbyrVIYn2z3oN4e1HJcYhvD6003fvQoCGG79DTGvPer5BXGG696iNznvVKAXI%2FP75qNrj0rVRENNwcdai%2B0Z5BzV2JsMM1MM3vVcoz6Vj8OaERltF00n%2Fr1Sn%2FAPCN6D%2F0BNM%2F8BErwaFWXtNSk2KPDuhKcroumg%2F9eqUN4d0NjltG04n3tUr6DkjvYfMxP%2BEb0H%2FoCaZ%2F4CJR%2FwAI3oP%2FAEBNM%2F8AARK4MRo9Auw%2F4RvQf%2BgJpn%2FgIlH%2FAAjeg%2F8AQE0z%2FwABErk5pBdh%2FwAI3oP%2FAEBNM%2F8AARKP%2BEb0H%2FoCaZ%2F4CJUucguw%2FwCEb0H%2FAKAmmf8AgIlH%2FCN6D%2F0BNM%2F8BErnlUn3Hdif8I1oH%2FQD0z%2FwESj%2FAIRnQP8AoB6X%2FwCAiVCrT7juyB%2FDWgj%2FAJgemf8AgIlV38O6H%2F0BdN%2F8BEreNWfci7Kz%2BH9E%2FwCgNpv%2FAICJVd9C0b%2FoD6d%2F4CpWyqSJ5mQPomj%2FAPQI07%2FwFSq7aPpP%2FQK0%2FwD8BUrTnZPMz0QUteXB2kWgor6SlWTiMKK5Kz5mAUVz2AKKloAorlmAmR60tc5RHIKpT8Ct4ElIsCOKgkrpRDKr1WetEQdxRXlPc2QUV20qugBRW%2FMAUVQBWTrGu2ulYWTLynnYtRPXRAcjf%2BM7yVj9nxAnoPmrIl8Sag3%2FAC8zAe0rU4rQY2z1ySEZhLpL1JJBrrdI8X2kkiR3JaAng7h8mairT5tQOqZwy5ByPasjVrpYLdjXPTWoilZPvgUmpHro6ksqyVVetEQd1RXlM1QUVcGMKK6osQU13VF3OwUepre4HE%2BIPFb7mh06VBH03r1auKnui5OW5Y5J9aFqUioz%2BlQyOfWqS1JYizH1q5by8jzDn3qmgOy0HWRbJ5cjuV%2B8B1ptzf8A9oqWT70rhYkPXFYctncDfji8mFY%2F7tROaRJWkqq5rVEHeUV5UjVBRUJ2LYUV0wkQZ2pXU4iaOxX96f8Alo%2F3VrAbR%2FPctqN9cSs39005VrbHTCnoWY9C0gcraoT%2FANNCXrn9Y0u2gkOy2jVP9hAKmnUk3qaOKRgz2cTfdNY9xbtH9K74PuYSh2KpyO9N847h%2FWt0ZstLfPJtUdAa6awu5pblL5AzJEOn86zlEk7ASCSNXi%2B4wyPpUbGudCK0hqrIa2RB6BTN%2FNcFdqVSTRqh9FcrLKFzqkEJ2r%2B8b26VnyanLJ%2FFt%2F3a1UdDWnDqyD7QO5qMzj%2BGnynQhwn44NUb6UOuGpxWoSOR1Ew2%2FmOXcHPygDIqtvWeGu3pcw6mZsxO8bf8BqtNGMn1FdEZGbRCmEA5O%2Bup0DUI0WFN%2B3bkcdaqqjE6XzZbaON7fJt2%2BZoz%2FAT3q6JhImRXMBC5qpIatEHafat%2FIOQaUS5rgaNEiUTeWuX4X1NZGt6vx9mt36%2FfI%2FlUwjdmqMLzqUXIrex0IlSXdSy7vvCsy0Ujc7WpWl8wc1VhmFq0AZeVLY54rNt1McIQ9a15tDG2o24j%2BdXxyKz7pvnOOK3pakTKI5zVyw3LhvTnFdL2Oc7fQrvz7QRnJ2DjPpWkvydPyrkAZI1VnaqRDE0%2FUJbBWRZnmj6gS84qWXW7hh%2Frdo%2F2eKza1N1EptfNI3zOetPWfPJNJmo2WXjrUay571JZFdXT2rxt%2FwAs271r2l4ssYZGz6iokiihql19llMmzKgZp2l6tb38OdgAzjdtwafJ7ty0ye6tw3uPWsea3EZpIllG4PBrCuzya6aO5nPYpbulXYrjbGeAflwK7JI5Tf8AC95i4I%2Bqf1FdaWrkn8QiB2qs7UIkxftFNM%2FFI6UMW496sxXGTQy0Wd2Uqq0201kWThluLWSJuQy4qlpd08UoPfoRT6FmjqUuRiqVn5cKeXDgc5PPeo6AjciuCtsOax9QuhvPNKwMypJg3Gaxb1iJMV2UFqY1NigXwackpruscp0nhKTfftEQMOmfyrtWeuCsvfGQO9VnepRDOX83n3pzT8Vo4nUiNZasRS9KmSsUi9FNxVa4b56yRoTWMvOKpY8nUJgP7%2B786a6otG1K%2B62Vj1xWRaQu2rvOv%2BrK4%2BtTB2uJLU25JhjA7Vz2qyleQcY60UleQpMz4594zVXUDyK7YRtMxk%2FdM9jxmhDXWcxueGrjy9WtueHO013jNxXn1%2FjGQO1VnesyTkDLimGU4rssb3HRycYqwktZSiapl6CTsaLg%2FN7VzbM0EgfBpk5L6mmP7g3frVdRm0HymOwqqfl4j4rnGhxbC1kahF5sZDHHvWlPRkyMyBNhZVYEVV1CT5wK9GDvM55K0SnnihTXSc50XhS3Et0Zm%2F5ZYxXXvJXm1%2FjL6Fd5KgaWsiGcezU0NXpWNBVfBqVGqJI0i7F6GSnyS5PWuXl1N0LE%2BDT49rXJl28moZReM%2Fy4FMEvNY2KHGTNZ98%2FyMtXD4iJGcWWCHJrGmk8x9xr0qK15jmrS6DM1JECx2gcmt3sYHbaDB9jsvm%2B%2B%2FJq%2B81ePN3kWVnmqs81BDOYLdKM16fUuIZqRGpWLLUT1Ixrne5qCHmrKttHFZyRoh6vR5g7Vk0WWLZTI2Kr6yqWzhmYbdtENZGc5WOXurkzn2qtXrwVkckpXAV0fh2zGDdyqP8Apn%2FjWOIdoCRvNNVeSevNGVnnqu81aqJDP%2F%2FZ"
-        // document.getElementById("img2").appendChild(img2)
+
     </script>
 
 </body>

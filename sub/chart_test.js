@@ -3,7 +3,7 @@ import { getDatabase, ref, onValue, onChildAdded, child, orderByChild, startAt, 
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 
 
-import firebaseConfig from './firebaseConfig.js';
+import firebaseConfig from '../firebaseConfig.js';
 
 
 const app = initializeApp(firebaseConfig);

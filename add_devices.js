@@ -1,18 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { getDatabase, ref as databaseRef, set, onValue } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
-import { getAuth, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 
-
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBsUW2NzEFYcgc32BN0yWdbFKUKxSvgmdI",
-  authDomain: "sendopt-20057.firebaseapp.com",
-  databaseURL: "https://sendopt-20057-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "sendopt-20057",
-  storageBucket: "sendopt-20057.appspot.com",
-  messagingSenderId: "160375474039",
-  appId: "1:160375474039:web:cff60b027beaf046194372"
-};
+import firebaseConfig from './firebaseConfig.js';
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
@@ -43,6 +33,11 @@ add.addEventListener('click', function() {
       set(databaseRef(database, `${id_devices.value}/type`), selectElement.value);
       // console.log(selectElement.value)
       alert("Add Devices successfully")
+
+      // Làm mới trang dashboard.html
+      if (window.opener && !window.opener.closed) {
+        window.opener.refreshDashboard();
+      }
       window.close();
     } else {
       // Người dùng chưa đăng nhập
@@ -55,7 +50,9 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     encodedEmail = encodeURIComponent(user.email.replace(/[.@]/g, '_'));   
     onValue(databaseRef(database, `${encodedEmail}/avt_img`), (snapshot) => {
-      avtUser1.src = snapshot.val();
+      if(snapshot.val()!=null){
+        avtUser1.src = snapshot.val();
+      }
     });
     nameuser1.innerHTML = user.displayName;
   }
@@ -65,7 +62,7 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     const uid = user.uid;
   } else {
-    window.location.replace("login_en.html")
+    window.location.replace("login.html")
   }
 });
 

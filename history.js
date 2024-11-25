@@ -1,85 +1,73 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-import { getDatabase, ref, onValue} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
+import { getDatabase, ref, onValue, remove} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBsUW2NzEFYcgc32BN0yWdbFKUKxSvgmdI",
-    authDomain: "sendopt-20057.firebaseapp.com",
-    databaseURL: "https://sendopt-20057-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "sendopt-20057",
-    storageBucket: "sendopt-20057.appspot.com",
-    messagingSenderId: "160375474039",
-    appId: "1:160375474039:web:cff60b027beaf046194372"
-};
+import firebaseConfig from './firebaseConfig.js';
   
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth(app);
 
 let encodedEmail;
-const nameuser1 = document.getElementById("nameuser1");
-const avtUser1 = document.getElementById("avt_user1");
+document.addEventListener('DOMContentLoaded', () => {
+    const nameuser1 = document.getElementById("nameuser1");
+    const avtUser1 = document.getElementById("avt_user1");
 
+    const tableBody = document.querySelector('table tbody');
 
-let number = 1;
-
-let Orders = [
-    {
-        number: '',
-        TIME: '',
-        IP: ''
-    },
-];
-
-onAuthStateChanged(auth, (user) => {  
-    if (user) {
+    onAuthStateChanged(auth, (user) => {  
+        if (user) {
         encodedEmail = encodeURIComponent(user.email.replace(/[.@]/g, '_'));
         onValue(ref(database, `${encodedEmail}/avt_img`), (snapshot) => {
-            avtUser1.src = snapshot.val();
+            if(snapshot.val()!=null){
+                avtUser1.src = snapshot.val();
+            }
         });
         nameuser1.innerHTML = user.displayName;
-        // console.log(user.displayName);
-    }
-
-    onValue(ref(database, `${encodedEmail}/history`), (snapshot) => {
-        const data = snapshot.val();
-        for (const key in data) {
-            if (Object.prototype.hasOwnProperty.call(data, key)) {
-                const TIME = key;
-                const IP = data[key];
-                number++;
-
-                const order = {
-                    number: number,
-                    TIME: TIME,
-                    IP: IP,
-                };
-
-                Orders.push(order);
-            }
+        //   console.log(user.displayName);
         }
 
-        displayOrders();
+        onValue(ref(database, `${encodedEmail}/history`), (snapshot) => {
+            const data = snapshot.val();
+            
+            // Chuyển đổi các cặp key-value thành mảng và sắp xếp theo ngày tháng giảm dần
+            const sortedData = Object.entries(data).sort(([keyA, IP_A], [keyB, IP_B]) => {
+                // Chuyển đổi chuỗi ngày tháng "dd-mm-yyyy hh:mm:ss" thành đối tượng Date
+                const [dayA, monthA, yearA] = keyA.split(' ')[0].split('-');
+                const [dayB, monthB, yearB] = keyB.split(' ')[0].split('-');
+                
+                // Tạo đối tượng Date (Lưu ý: JavaScript yêu cầu tháng bắt đầu từ 0, tức là tháng 1 là 0)
+                const dateA = new Date(`${yearA}-${monthA}-${dayA}T${keyA.split(' ')[1]}`);
+                const dateB = new Date(`${yearB}-${monthB}-${dayB}T${keyB.split(' ')[1]}`);
+                
+                // Sắp xếp giảm dần
+                return dateB - dateA; // Nếu dateB > dateA thì xếp trước
+            });
+        
+        
+            sortedData.forEach(([key, IP]) => {
+                // Kiểm tra xem hàng đã tồn tại trong bảng chưa
+                const existingRow = tableBody.querySelector(`tr[data-key="${key}"]`);
+        
+                if (existingRow) {
+                    // Nếu hàng đã tồn tại, cập nhật nội dung cột IP
+                    existingRow.querySelector('.ip-column').textContent = IP;
+                } else {
+                    const tr = document.createElement('tr');
+                    tr.setAttribute('data-key', key);
+                    const trContent = `
+                        <td>${key}</td> <!-- Hiển thị ngày/tháng theo định dạng "dd-mm-yyyy hh:mm:ss" -->
+                        <td class="ip-column">${IP}</td>
+                    `;
+                    tr.innerHTML = trContent;
+        
+                    tableBody.appendChild(tr);
+                    // number++;
+                }
+            });
+        });
     });
 });
-
-function displayOrders() {
-    const tableBody = document.querySelector('table tbody');
-    tableBody.innerHTML = '';
-
-    Orders.forEach(order => {
-        const tr = document.createElement('tr');
-        const trContent = `
-            <td>${order.number}</td>
-            <td>${order.TIME}</td>
-            <td>${order.IP}</td>
-            <td class="${order.status === 'Online' ? 'danger' : order.status === 'Logout' ? 'warning' : 'primary'}">${order.status}</td>
-            <td class="primary">Details</td>
-        `;
-        tr.innerHTML = trContent;
-        tableBody.appendChild(tr);
-    });
-}
 
 onAuthStateChanged(auth, (user) => {
 if (user) {
@@ -98,4 +86,4 @@ if (userRead === null) {
         console.error(error);
     };
 }
-
+  

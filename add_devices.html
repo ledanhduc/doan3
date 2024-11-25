@@ -29,8 +29,8 @@
                 </div>
             </div>
 
-            <div class="sidebar">
-                <a id="ref_dashboard" href="#">
+            <div class="sidebar" id="sidebar-container">
+                <!-- <a id="ref_dashboard" href="#">
                     <span class="material-icons-sharp">
                         dashboard
                     </span>
@@ -89,7 +89,7 @@
                         logout
                     </span>
                     <h3>Logout</h3>
-                </a>
+                </a> -->
             </div>
         </aside>
 
@@ -99,33 +99,35 @@
                 <div class="profile">
                     <div class="info">
                         <div class="input_in4">
-                            <h2>ID Devices: </h2>
-                            <h2>Name: </h2>
+                            <h2 id="iddevices">ID Devices: </h2>
+                            <h2 id="name">Name: </h2>
                             <!-- <input type="number" placeholder="20161113" > -->
                         </div>                      
                         <div class="input_in4">
                             <!-- <h2>DoB: </h2> -->
-                            <input type="number" id="id_devices" placeholder="" required>
+                            <!-- <input type="number" id="id_devices" placeholder="" required> -->
+                            <input type="text" id="id_devices" placeholder="" required>
                             <input type="text" id="id_name" placeholder="" >
                         </div>    
                     </div>
                     <div class="info">
                         <select id="pet-select">
-                            <option value="">-- Please choose an type meter --</option>
-                            <option value="elic">Electricity </option>
-                            <option value="wt">Water</option>
+                            <option value="" id="choose">-- Please choose an type meter --</option>
+                            <option value="elic" id="elic">Electricity </option>
+                            <option value="wt" id="wt">Water</option>
+                            <option value="lock" id="lock">Lock</option>
                         </select>
                     </div>     
                     <div class="info">
                         <!-- <h2>Update: </h2> -->
-                        <button id="add"><h3>Add Devices</h3></button>
+                        <button id="add" ><h3>Add Devices</h3></button>
                     </div>
                 </div>
             </div>
 
         
 
-            <div class="recent-checkin">
+            <!-- <div class="recent-checkin">
                 <h2>Attendance </h2>
                 <table>
                     <thead>
@@ -140,17 +142,18 @@
                     <tbody></tbody>
                 </table>
                 <a href="#">Show All</a>
-            </div>
+            </div> -->
 
         </main>
 
         <div class="right-section">
-            <div class="nav">
-                <button id="menu-btn">
+            <div class="nav" id="sidebar-nav">
+                <!-- <button id="menu-btn">
                     <span class="material-icons-sharp">
                         menu
                     </span>
                 </button>
+
                 <div class="dark-mode">
                     <span class="material-icons-sharp active">
                         light_mode
@@ -161,7 +164,7 @@
                 </div>
 
                 <div>
-                    <a href="" class="lang">En</a>
+                    <a class="lang" id="langBtn" >Vi</a>
                 </div>
 
                 <div class="profile">
@@ -172,8 +175,7 @@
                     <div class="profile-photo">
                         <img src="images/profile-1.jpg" id="avt_user1">
                     </div>
-                </div>
-
+                </div> -->
             </div>
 
             <div class="weather-in4">
@@ -255,8 +257,8 @@
                 </div>
             </div>
 
-            <div class="reminders">
-                <div class="header">
+            <div class="reminders" id="sidebar-reminders">
+                <!-- <div class="header">
                     <h2>Reminders</h2>
                     <span class="material-icons-sharp">
                         notifications_none
@@ -308,8 +310,7 @@
                         </span>
                         <h3>Respond</h3>
                     </div>
-                </div>
-
+                </div> -->
             </div>
 
         </div>
@@ -317,12 +318,17 @@
 
     </div>
 
+    <script src="sidebar_nav.js"></script>
     <script type="module" src="weather_3.js"></script>
+    <script src="sidebar_parent.js"></script>
+    <script src="sidebar_reminders.js"></script>
     <script type="module" src="add_devices.js" ></script>
-    <script src="orders.js"></script>
+    <!-- <script src="orders.js"></script> -->
     <script src="index_2.js"></script>
     <script src="href.js"></script>
-    <script type="module" src="logout_en.js" ></script>
+    <script src="./trans/translate.js"></script>
+    <script src="./trans/translate_adddevices.js"></script>
+    <script type="module" src="logout.js" ></script>
 
     <script>
 

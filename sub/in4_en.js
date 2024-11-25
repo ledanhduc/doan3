@@ -12,8 +12,10 @@ import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 //   appId: "1:160375474039:web:cff60b027beaf046194372"
 // };
 
-import firebaseConfig from './firebaseConfig.js';
+import firebaseConfig from '../firebaseConfig.js';
 
+const urlParams = new URLSearchParams(window.location.search);
+const idDevice = urlParams.get('id');
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
@@ -23,37 +25,45 @@ let encodedEmail;
 const nameuser1 = document.getElementById("nameuser1");
 const avtUser1 = document.getElementById("avt_user1");
 const id_st = document.getElementById("st_id");
-let Id_device;
+let Id_device = idDevice;
 
 onAuthStateChanged(auth, (user) => {  
   if (user) {
     encodedEmail = encodeURIComponent(user.email.replace(/[.@]/g, '_'));
     onValue(ref(database, `${encodedEmail}/avt_img`), (snapshot) => {
-      avtUser1.src = snapshot.val();
+      if(snapshot.val()!=null){
+        avtUser1.src = snapshot.val();
+      }
     });
     nameuser1.innerHTML = user.displayName;
     console.log(user.displayName);
 
-    onValue(ref(database, `${encodedEmail}/Id_Device`), (snapshot) => {
-      Id_device = snapshot.val();
-      id_st.innerText ="ID: " + Id_device;
-      handleIdDeviceUpdate(Id_device);
-    });
-
-    // onValue(ref(database, `${encodedEmail}/history`), (snapshot) => {
-    //   const data = snapshot.val();
-      // for (const key in data) {
-      //   if (Object.prototype.hasOwnProperty.call(data, key)) {
-      //     console.log(`Key: ${key}, Value: ${data[key]}`);
-      //     // Hiển thị lên giao diện người dùng
-      //     // Ví dụ: document.getElementById('result').innerHTML += `Key: ${key}, Value: ${data[key]} <br>`;
-      //   }
-      // }
+    // onValue(ref(database, `${encodedEmail}/Id_Device`), (snapshot) => {
+    //   Id_device = snapshot.val();
+    //   id_st.innerText ="ID: " + Id_device;
+    //   handleIdDeviceUpdate(Id_device);
     // });
+
+    onValue(ref(database, `${encodedEmail}/devices`), (snapshot) => {
+      const devices = snapshot.val(); // Các thiết bị của người dùng
+      if (devices && devices[Id_device]) { // Kiểm tra xem thiết bị có tồn tại không
+        Id_device = Id_device; // Đảm bảo sử dụng ID thiết bị từ URL
+        // console.log(`Key: ${Id_device}, Value: ${data[Id_device]}`);
+        // console.log(`Key: ${devices[Id_device]}`);
+        id_st.innerText = "ID: " + Id_device + " - " + `${devices[Id_device]}`;
+        handleIdDeviceUpdate(Id_device); // Gọi hàm cập nhật thông tin thiết bị
+      } else {
+        alert("Device not found.");
+      }
+    });
   }
 });
 
 function handleIdDeviceUpdate(value) {
+
+const refChartLink = document.getElementById("ref_chart");
+refChartLink.href = `chart_col.html?id=${value}`;
+
 
 console.log(value);
 const tempRef = ref(database, `${value}/Frequency`);
