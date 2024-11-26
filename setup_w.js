@@ -75,7 +75,6 @@ TakePhoto.addEventListener('click', function() {
                         onValue(databaseRef(database, `/${idDevice}/img_config`), (imgSnapshot) => {
                             if (imgSnapshot.exists() && imgSnapshot.val() != null) {
                                 let imageUrl = imgSnapshot.val();
-                                data_img.innerHTML = imageUrl.length;
                                 if (!imageUrl.startsWith("data:image/png;base64,")) {
                                     imageUrl = "data:image/png;base64," + imageUrl;
                                 }
@@ -132,7 +131,6 @@ TakePhoto.addEventListener('click', function() {
             onValue(databaseRef(database, `/${idDevice}/img_config`), (imgSnapshot) => {
                 if (imgSnapshot.exists() && imgSnapshot.val() != null) {
                     let imageUrl = imgSnapshot.val();
-                    data_img.innerHTML = imageUrl.length;
                     if (!imageUrl.startsWith("data:image/png;base64,")) {
                         imageUrl = "data:image/png;base64," + imageUrl;
                     }
@@ -381,7 +379,6 @@ function cropAndSave() {
     Cut_Setup_img.height = height; // Đặt chiều cao của <img> bằng chiều cao của vùng cắt
 
     // Hiển thị base64 lên giao diện
-    document.getElementById('base64-output').value = base64Image;
 }
 
 
@@ -395,7 +392,7 @@ function processImageApi(base64Image) {
     };
 
     // Gửi yêu cầu POST đến API
-    fetch('https://jay-shining-sole.ngrok-free.app/process_image', {
+    fetch('https://weevil-decent-legally.ngrok-free.app/process_image', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

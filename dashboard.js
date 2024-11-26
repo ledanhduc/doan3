@@ -141,7 +141,7 @@ onAuthStateChanged(auth, (user) => {
               // window.location.href = 'analytics_en.html';
               window.location.href = `statistics_e.html?id=${key}`;
             } else if (typeHeading.innerText === "Name Device: Water") {
-              window.location.href = `w_meter_test.html?id=${key}`;
+              window.location.href = `statistics_w.html?id=${key}`;
             } else {
               alert("This device type is not defined.");
             }

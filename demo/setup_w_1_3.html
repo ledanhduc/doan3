@@ -8,6 +8,9 @@
         canvas {
             border: 1px solid black;
             margin-top: 20px;
+            width: fit-content;  /* 80% chiều rộng của phần tử cha */
+            height: fit-content;  /* Chiều cao cố định */
+            
         }
         
         /* Tạo hiệu ứng xoay vòng cho spinner */
@@ -48,7 +51,7 @@
     <p>Number: <span id="number_output"></span></p>
     <p>Text: <span id="text_output"></span></p>
     <!-- Thêm phần tử spinner -->
-    <div id="spinner" style="display:none; width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; animation: spin 2s linear infinite; margin-top: 20px; margin-bottom: 20px;"></div>
+    
 
     <!-- <p><strong>Number Output:</strong></p>
     <textarea id="number_output" rows="1" cols="10"></textarea>
