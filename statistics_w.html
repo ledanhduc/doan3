@@ -62,6 +62,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="Temperature">
+                    <div class="status">
+                        <div class="info">
+                            <div id="img4"></div>
+                            <h3>Ngày 10 hàng tháng</h3>
+                        </div>
+                    </div>
+                </div>
                 
             </div>
 
@@ -226,19 +234,23 @@
         var img1 = new Image();
         var img2 = new Image();
         var img3 = new Image();
+        var img4 = new Image();
     
         // Đặt nguồn ảnh là chuỗi Base64
         img1.src = "data:image/png;base64," + base64String;
         img2.src = "data:image/png;base64," + base64String;
         img3.src = "data:image/png;base64," + base64String;
+        img4.src = "data:image/png;base64," + base64String;
     
         // Thêm hình ảnh vào phần tử div có id "image-container"
         var imageContainer1 = document.getElementById("img1");
         var imageContainer2 = document.getElementById("img2");
         var imageContainer3 = document.getElementById("img3");
+        var imageContainer4 = document.getElementById("img4");
         imageContainer1.appendChild(img1);
         imageContainer2.appendChild(img2);
         imageContainer3.appendChild(img3);
+        imageContainer4.appendChild(img4);
                 // var img2 = new Image();
         // img2.src = "data:image/jpeg;base64,%2F9j%2F4AAQSkZJRgABAQEAAAAAAAD%2F2wBDAAoHCAkIBgoJCAkLCwoMDxkQDw4ODx8WFxIZJCAmJiQgIyIoLToxKCs2KyIjMkQzNjs9QEFAJzBHTEY%2FSzo%2FQD7%2F2wBDAQsLCw8NDx0QEB0%2BKSMpPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj4%2BPj7%2FxAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv%2FxAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5%2Bjp6vHy8%2FT19vf4%2Bfr%2FxAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv%2FxAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4%2BTl5ufo6ery8%2FT19vf4%2Bfr%2FwAARCAB4AKADASEAAhEBAxEB%2F9oADAMBAAIRAxEAPwClNeAnrToHzzXjMzLYcUhkoLQ3zBTfNFAxfNFJ5tSMQyimmUUAMMwqMzD1pgRmUVC04qkgI2lXFQtMPWtUiSJpveojKK05SCIyVE0gq7CZY%2B0ktV62uuOoqJwLNOBml6UlwXiPNc9iii9371GbyrVIYn2z3oN4e1HJcYhvD6003fvQoCGG79DTGvPer5BXGG696iNznvVKAXI%2FP75qNrj0rVRENNwcdai%2B0Z5BzV2JsMM1MM3vVcoz6Vj8OaERltF00n%2Fr1Sn%2FAPCN6D%2F0BNM%2F8BErwaFWXtNSk2KPDuhKcroumg%2F9eqUN4d0NjltG04n3tUr6DkjvYfMxP%2BEb0H%2FoCaZ%2F4CJR%2FwAI3oP%2FAEBNM%2F8AARK4MRo9Auw%2F4RvQf%2BgJpn%2FgIlH%2FAAjeg%2F8AQE0z%2FwABErk5pBdh%2FwAI3oP%2FAEBNM%2F8AARKP%2BEb0H%2FoCaZ%2F4CJUucguw%2FwCEb0H%2FAKAmmf8AgIlH%2FCN6D%2F0BNM%2F8BErnlUn3Hdif8I1oH%2FQD0z%2FwESj%2FAIRnQP8AoB6X%2FwCAiVCrT7juyB%2FDWgj%2FAJgemf8AgIlV38O6H%2F0BdN%2F8BEreNWfci7Kz%2BH9E%2FwCgNpv%2FAICJVd9C0b%2FoD6d%2F4CpWyqSJ5mQPomj%2FAPQI07%2FwFSq7aPpP%2FQK0%2FwD8BUrTnZPMz0QUteXB2kWgor6SlWTiMKK5Kz5mAUVz2AKKloAorlmAmR60tc5RHIKpT8Ct4ElIsCOKgkrpRDKr1WetEQdxRXlPc2QUV20qugBRW%2FMAUVQBWTrGu2ulYWTLynnYtRPXRAcjf%2BM7yVj9nxAnoPmrIl8Sag3%2FAC8zAe0rU4rQY2z1ySEZhLpL1JJBrrdI8X2kkiR3JaAng7h8mairT5tQOqZwy5ByPasjVrpYLdjXPTWoilZPvgUmpHro6ksqyVVetEQd1RXlM1QUVcGMKK6osQU13VF3OwUepre4HE%2BIPFb7mh06VBH03r1auKnui5OW5Y5J9aFqUioz%2BlQyOfWqS1JYizH1q5by8jzDn3qmgOy0HWRbJ5cjuV%2B8B1ptzf8A9oqWT70rhYkPXFYctncDfji8mFY%2F7tROaRJWkqq5rVEHeUV5UjVBRUJ2LYUV0wkQZ2pXU4iaOxX96f8Alo%2F3VrAbR%2FPctqN9cSs39005VrbHTCnoWY9C0gcraoT%2FANNCXrn9Y0u2gkOy2jVP9hAKmnUk3qaOKRgz2cTfdNY9xbtH9K74PuYSh2KpyO9N847h%2FWt0ZstLfPJtUdAa6awu5pblL5AzJEOn86zlEk7ASCSNXi%2B4wyPpUbGudCK0hqrIa2RB6BTN%2FNcFdqVSTRqh9FcrLKFzqkEJ2r%2B8b26VnyanLJ%2FFt%2F3a1UdDWnDqyD7QO5qMzj%2BGnynQhwn44NUb6UOuGpxWoSOR1Ew2%2FmOXcHPygDIqtvWeGu3pcw6mZsxO8bf8BqtNGMn1FdEZGbRCmEA5O%2Bup0DUI0WFN%2B3bkcdaqqjE6XzZbaON7fJt2%2BZoz%2FAT3q6JhImRXMBC5qpIatEHafat%2FIOQaUS5rgaNEiUTeWuX4X1NZGt6vx9mt36%2FfI%2FlUwjdmqMLzqUXIrex0IlSXdSy7vvCsy0Ujc7WpWl8wc1VhmFq0AZeVLY54rNt1McIQ9a15tDG2o24j%2BdXxyKz7pvnOOK3pakTKI5zVyw3LhvTnFdL2Oc7fQrvz7QRnJ2DjPpWkvydPyrkAZI1VnaqRDE0%2FUJbBWRZnmj6gS84qWXW7hh%2Frdo%2F2eKza1N1EptfNI3zOetPWfPJNJmo2WXjrUay571JZFdXT2rxt%2FwAs271r2l4ssYZGz6iokiihql19llMmzKgZp2l6tb38OdgAzjdtwafJ7ty0ye6tw3uPWsea3EZpIllG4PBrCuzya6aO5nPYpbulXYrjbGeAflwK7JI5Tf8AC95i4I%2Bqf1FdaWrkn8QiB2qs7UIkxftFNM%2FFI6UMW496sxXGTQy0Wd2Uqq0201kWThluLWSJuQy4qlpd08UoPfoRT6FmjqUuRiqVn5cKeXDgc5PPeo6AjciuCtsOax9QuhvPNKwMypJg3Gaxb1iJMV2UFqY1NigXwackpruscp0nhKTfftEQMOmfyrtWeuCsvfGQO9VnepRDOX83n3pzT8Vo4nUiNZasRS9KmSsUi9FNxVa4b56yRoTWMvOKpY8nUJgP7%2B786a6otG1K%2B62Vj1xWRaQu2rvOv%2BrK4%2BtTB2uJLU25JhjA7Vz2qyleQcY60UleQpMz4594zVXUDyK7YRtMxk%2FdM9jxmhDXWcxueGrjy9WtueHO013jNxXn1%2FjGQO1VnesyTkDLimGU4rssb3HRycYqwktZSiapl6CTsaLg%2FN7VzbM0EgfBpk5L6mmP7g3frVdRm0HymOwqqfl4j4rnGhxbC1kahF5sZDHHvWlPRkyMyBNhZVYEVV1CT5wK9GDvM55K0SnnihTXSc50XhS3Et0Zm%2F5ZYxXXvJXm1%2FjL6Fd5KgaWsiGcezU0NXpWNBVfBqVGqJI0i7F6GSnyS5PWuXl1N0LE%2BDT49rXJl28moZReM%2Fy4FMEvNY2KHGTNZ98%2FyMtXD4iJGcWWCHJrGmk8x9xr0qK15jmrS6DM1JECx2gcmt3sYHbaDB9jsvm%2B%2B%2FJq%2B81ePN3kWVnmqs81BDOYLdKM16fUuIZqRGpWLLUT1Ixrne5qCHmrKttHFZyRoh6vR5g7Vk0WWLZTI2Kr6yqWzhmYbdtENZGc5WOXurkzn2qtXrwVkckpXAV0fh2zGDdyqP8Apn%2FjWOIdoCRvNNVeSevNGVnnqu81aqJDP%2F%2FZ"
         // document.getElementById("img2").appendChild(img2)

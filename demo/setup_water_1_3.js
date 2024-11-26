@@ -387,7 +387,7 @@ function cropAndSave() {
 
 // Hàm gửi ảnh base64 tới API và in kết quả trả về
 function processImageApi(base64Image) {
-    spinner.style.display = "block"; // Hiển thị spinner
+    // spinner.style.display = "block"; // Hiển thị spinner
 
     // Tạo đối tượng dữ liệu gửi đi
     const requestData = {

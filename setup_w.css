@@ -65,7 +65,7 @@ body{
     font-size: 0.88rem;
     -webkit-user-select: none;
     user-select: none;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     color: var(--color-dark);
     background-color: var(--color-background);
 }
