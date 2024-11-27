@@ -348,12 +348,6 @@ function cropAndSave() {
     const width = endX - startX;
     const height = endY - startY;
 
-    set(databaseRef(database, `/${idDevice}/startX`), startX);
-    set(databaseRef(database, `/${idDevice}/endX`), endX);
-    set(databaseRef(database, `/${idDevice}/startY`), startY);
-    set(databaseRef(database, `/${idDevice}/endY`), endY);
-
-    
     // Lấy dữ liệu hình ảnh từ canvas ảnh (không bao gồm lớp lưới)
     const imageCtx = imageCanvas.getContext('2d');
     const imageData = imageCtx.getImageData(startX, startY, width, height);
@@ -381,6 +375,12 @@ function cropAndSave() {
     // Hiển thị base64 lên giao diện
 }
 
+function saveconfig(){
+    set(databaseRef(database, `/${idDevice}/startX`), startX);
+    set(databaseRef(database, `/${idDevice}/endX`), endX);
+    set(databaseRef(database, `/${idDevice}/startY`), startY);
+    set(databaseRef(database, `/${idDevice}/endY`), endY);
+}
 
 // Hàm gửi ảnh base64 tới API và in kết quả trả về
 function processImageApi(base64Image) {
@@ -417,5 +417,6 @@ function processImageApi(base64Image) {
 
 // Gán sự kiện cho nút cắt ảnh
 document.getElementById('crop-button').addEventListener('click', cropAndSave);
+document.getElementById('save-config').addEventListener('click', saveconfig);
 
 
