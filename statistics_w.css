@@ -263,6 +263,11 @@ main .analyse > div .status{
     /* justify-content: space-between; */
 }
 
+main .analyse > div .img{
+    align-self: center;
+    /* width: 80%; */
+    /* height: 80%; */
+} 
 
 main .analyse h3{
     margin-left: 0.6rem;

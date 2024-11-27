@@ -9,14 +9,14 @@ const sidebarHTML = `
         <h3>Users</h3>
     </a>
     </a>
+    <a id="ref_setup_w" href="#">
+        <span class="material-icons-sharp">touch_app</span>
+        <h3>Setup</h3>
+    </a>
     <a id="ref_statistics" href="#">
         <span class="material-icons-sharp">inventory</span>
         <h3>Statistics</h3>
         <span class="message-count" id="st_cir"><br></span>
-    </a>
-    <a id="ref_setup_w" href="#">
-        <span class="material-icons-sharp">touch_app</span>
-        <h3>Setup</h3>
     </a>
     <a id="ref_analytics" href="#">
         <span class="material-icons-sharp">insights</span>

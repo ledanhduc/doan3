@@ -7,15 +7,13 @@ import firebaseConfig from './firebaseConfig.js';
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const auth = getAuth(app);
-// const user = auth.currentUser;
 
-// const currentUrl = window.location.href;
-// const idDevice = new URLSearchParams(window.location.search).get('id');
-
-// const currentUrl = window.location.href;
+const currentUrl = window.location.href;
 const idDevice = new URLSearchParams(window.location.search).get('id');
 
 let encodedEmail;
+const nameuser1 = document.getElementById("nameuser1");
+const avtUser1 = document.getElementById("avt_user1");
 
 // Khai báo các biến toàn cục
 let isDrawing = false;
@@ -63,8 +61,6 @@ const gridCtx = gridCanvas.getContext('2d');
 TakePhoto.addEventListener('click', function() {
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            encodedEmail = encodeURIComponent(user.email.replace(/[.@]/g, '_'));
-
             // Kiểm tra giá trị hiện tại của "/cap" chỉ 1 lần
             get(databaseRef(database, `/${idDevice}/cap`)).then((snapshot) => {
                 if (snapshot.exists() && snapshot.val() === false) { // Chỉ thay đổi khi "/cap" là false
@@ -106,6 +102,7 @@ TakePhoto.addEventListener('click', function() {
                                         // Nếu không có giá trị hình ảnh (null), vẽ "Hello World" lên canvas
                             }
                         });
+
                     }).catch((error) => {
                         console.log("Error setting '/cap' to true:", error);
                     });
@@ -115,6 +112,7 @@ TakePhoto.addEventListener('click', function() {
             }).catch((error) => {
                 console.log("Error retrieving '/cap' value:", error);
             });
+
         } else {
             console.log("Không có người dùng nào đang đăng nhập.");
         }
@@ -125,8 +123,6 @@ TakePhoto.addEventListener('click', function() {
 // GetPhoto.addEventListener('click', function() {
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            encodedEmail = encodeURIComponent(user.email.replace(/[.@]/g, '_'));
-
             // Just retrieve the image without altering "/cap" state
             onValue(databaseRef(database, `/${idDevice}/img_config`), (imgSnapshot) => {
                 if (imgSnapshot.exists() && imgSnapshot.val() != null) {
@@ -177,13 +173,57 @@ TakePhoto.addEventListener('click', function() {
                     // Setup_img.getContext('2d').drawImage(gridCanvas, 0, 0);
                 }
             });
+
+            onValue(databaseRef(database, `/${idDevice}/insesity_flash`), (insensity) => {
+                if (insensity.exists() && insensity.val() != null) {
+                    document.getElementById('insensity').value = insensity.val();
+                } else {
+                    console.log("Insensity found.");
+                }
+            });
+            
+            onValue(databaseRef(database, `/${idDevice}/SSI`), (ssi) => {
+                let ssiData = ssi.val();
+                console.log(ssiData);
+            
+                if (ssi.exists() && ssiData !== null) {
+                    // Kiểm tra mức độ tín hiệu và thay đổi biểu tượng wifi
+                    if (ssiData > -60) {
+                        document.getElementById('ssi').innerHTML = "wifi";
+                    } else if (ssiData <= -60 && ssiData > -70) {
+                        document.getElementById('ssi').innerHTML = "wifi_2_bar";
+                    } else if (ssiData <= -70 && ssiData > -80) {
+                        document.getElementById('ssi').innerHTML = "network_wifi_1_bar";
+                    } else if (ssiData <= -80) {
+                        document.getElementById('ssi').innerHTML = "wifi_1_bar";
+                    } else {
+                        console.log("Invalid SSI value.");
+                    }
+                } else {
+                    console.log("SSI data is not available or invalid.");
+                }
+            });
+
         } else {
             console.log("No user is logged in.");
         }
     });
-// });
 
-
+onAuthStateChanged(auth, (user) => {  
+    if (user) {
+        encodedEmail = encodeURIComponent(user.email.replace(/[.@]/g, '_'));
+        onValue(databaseRef(database, `${encodedEmail}/avt_img`), (snapshot) => {
+        if(snapshot.val()!=null){
+            avtUser1.src = snapshot.val();
+        }
+        });
+        nameuser1.innerHTML = user.displayName;
+        console.log(user.displayName);
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+    updateLinkHrefs(pageLinks_w, currentUrl, idDevice, idDevice);
+});
 // Hàm vẽ ảnh với góc quay và cập nhật kích thước canvas
 function drawImageWithRotation() {
     if (!originalImage) return; // Nếu chưa có ảnh, không làm gì
@@ -267,13 +307,6 @@ function drawGrid(ctx, canvas) {
     ctx.lineWidth = 1;  // Độ dày của lưới
     ctx.stroke();
 }
-
-// Cập nhật lại góc khi người dùng thay đổi
-document.getElementById('angle').addEventListener('input', function() {
-    angle = parseInt(this.value);
-    drawImageWithRotation(); // Vẽ lại ảnh và lưới sau khi thay đổi góc
-});
-
 
 // Cập nhật góc quay khi người dùng thay đổi
 document.getElementById('angle').addEventListener('input', function() {
@@ -421,3 +454,30 @@ document.getElementById('crop-button').addEventListener('click', cropAndSave);
 document.getElementById('save-config').addEventListener('click', saveconfig);
 
 
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+    } else {
+      window.location.replace("login.html")
+    }
+  });
+  
+  // var userRead =  sessionStorage.getItem('userses') || localStorage.getItem('user');
+  // if (userRead === null) {
+  //     try {
+  //         auth.signOut();
+  //     }
+  //     catch(error){
+  //         console.error(error);
+  //       };
+  // }
+  
+  var userRead = sessionStorage.getItem('userses') || localStorage.getItem('user');
+  if (userRead === null) {
+      try {
+          auth.signOut();
+          window.location.replace("login.html"); // Chuyển hướng trở lại trang đăng nhập
+      } catch(error) {
+          console.error(error);
+      }
+  }

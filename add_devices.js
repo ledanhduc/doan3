@@ -36,6 +36,7 @@ add.addEventListener('click', function() {
         set(databaseRef(database, `${id_devices.value}/h_daily`), 0);
         set(databaseRef(database, `${id_devices.value}/m_daily`), 30);
         set(databaseRef(database, `${id_devices.value}/day_mthly`), 10);
+        set(databaseRef(database, `${id_devices.value}/insesity_flash`), 255);
       }
       // console.log(selectElement.value)
       alert("Add Devices successfully")

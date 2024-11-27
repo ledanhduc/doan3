@@ -12,6 +12,12 @@
     <link rel="stylesheet" href="setup_w.css">
     <style>
         /* Đặt một số kiểu CSS cơ bản để làm cho giao diện dễ nhìn hơn */
+        .header{
+            display: inline-flex;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+        }
+
         canvas {
             border: 1px solid black;
             margin-top: 20px;
@@ -28,7 +34,7 @@
             height: fit-content;
         }
     </style>
-    <title>Users | ELS</title>
+    <title>Setup | ELS</title>
 </head>
 
 <body>
@@ -52,7 +58,14 @@
         </aside>
 
         <main>
-            <h1>User Profile</h1>
+            <div class="header">
+                <h1>Wifi</h1>
+                <!-- <h2 style="margin-left: 10%;">Signal</h2> -->
+                <h1 class="material-icons-sharp" style="margin-left: 5%; margin-top: 5%;" id="ssi">
+                    wifi
+                </h1>
+                <!-- <h1>Guide config</h1> -->
+            </div>
             <div class="analyse">
                 <div class="profile">
                     <canvas id="image-canvas" ></canvas>
@@ -66,6 +79,14 @@
                         </div>                      
                         <div class="input_in4">
                             <input type="number" id="angle" value="0">
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="input_in4">
+                            <h2>insensity Flash: </h2>
+                        </div>                      
+                        <div class="input_in4">
+                            <input type="number" id="insensity" value="0">
                         </div>
                     </div>
                     <div class="info">
@@ -123,7 +144,7 @@
                 <div class="profile">
                     <div class="info">
                         <p>Hi, <b id="nameuser1" ></b></p>
-                        <small class="text-muted">User</small>
+                        <small class="text-muted">Setup</small>
                     </div>
                     <div class="profile-photo">
                         <img src="images/ute_avt.jpeg" id="avt_user1">
@@ -272,16 +293,17 @@
 
     </div>
 
-    <script type="module" src="weather_3.js"></script>
+    <script src="weather_3.js" type="module" ></script>
     <script src="sidebar_child_w.js"></script>
     <script src="sidebar_reminders.js"></script>
-    <script type="module" src="setup_w.js" ></script>
+    <script src="setup_w.js" type="module" ></script>
     <script src="index_2.js"></script>
     <script src="href.js"></script>
     <script src="href_w.js"></script>
+    <script src="redirecting_w.js"></script>
     <script src="./trans/translate.js" ></script>
     <script src="./trans/translate_profile.js"></script>
-    <script type="module" src="logout.js" ></script>
+    <script src="logout.js" type="module" ></script>
 
     <script>
 
