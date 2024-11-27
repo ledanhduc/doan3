@@ -376,6 +376,7 @@ function cropAndSave() {
 }
 
 function saveconfig(){
+    set(databaseRef(database, `/${idDevice}/angle`), angle);
     set(databaseRef(database, `/${idDevice}/startX`), startX);
     set(databaseRef(database, `/${idDevice}/endX`), endX);
     set(databaseRef(database, `/${idDevice}/startY`), startY);
