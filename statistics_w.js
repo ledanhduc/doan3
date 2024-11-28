@@ -23,8 +23,8 @@ const idDevice = new URLSearchParams(window.location.search).get('id');
 let encodedEmail;
 const nameuser1 = document.getElementById("nameuser1");
 const avtUser1 = document.getElementById("avt_user1");
-let Id_device ;
-
+// let Id_device ;
+const id_st = document.getElementById("st_id");
 // Lấy ngày hiện tại
 var today = new Date();
 var currentMonth = today.getMonth() + 1; // Tháng hiện tại (JavaScript sử dụng chỉ số tháng từ 0-11)
@@ -44,11 +44,12 @@ onAuthStateChanged(auth, (user) => {
     console.log(user.displayName);
 
     onValue(ref(database, `${encodedEmail}/devices`), (snapshot) => {
-      const devices = snapshot.val(); // Các thiết bị của người dùng
-      if (devices && devices[idDevice]) { // Kiểm thiết bị có tồn tại không
+      const devices = snapshot.val();
+      if (devices && devices[idDevice]) { 
 
-        // id_st.innerText = "ID: " + idDevice + " - " + `${devices[idDevice]}`;
+        id_st.innerText = "ID: " + idDevice + " - " + `${devices[idDevice]}`;
         handleIdDeviceUpdate(idDevice); //cập nhật thông tin thiết bị
+        
       } else {
         alert("Device not found.");
       }

@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
 import { getDatabase, ref as databaseRef, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
+// import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-database.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 
 import firebaseConfig from './firebaseConfig.js';
@@ -21,7 +22,7 @@ let startX = 0, startY = 0, endX = 0, endY = 0;
 let angle = 0;
 let originalImage = null; // Lưu ảnh gốc để xử lý
 
-const GetPhoto = document.getElementById("getphoto");
+// const GetPhoto = document.getElementById("getphoto");
 const TakePhoto = document.getElementById("takephoto");
 const Setup_img = document.getElementById("image-canvas");
 const Cut_Setup_img = document.getElementById("Cut_Setup_img");
@@ -29,6 +30,7 @@ const number_output = document.getElementById("number_output");
 const text_output = document.getElementById("text_output");
 const spinner = document.getElementById("spinner");
 const data_img = document.getElementById("data_img");
+const id_st = document.getElementById("st_id");
 
 const gridSize = 50; // Kích thước lưới (mỗi ô vuông là 50px)
 
@@ -123,6 +125,14 @@ TakePhoto.addEventListener('click', function() {
 // GetPhoto.addEventListener('click', function() {
     onAuthStateChanged(auth, (user) => {
         if (user) {
+            encodedEmail = encodeURIComponent(user.email.replace(/[.@]/g, '_'));
+            onValue(databaseRef(database, `${encodedEmail}/avt_img`), (snapshot) => {
+            if(snapshot.val()!=null){
+                avtUser1.src = snapshot.val();
+            }
+            });
+            nameuser1.innerHTML = user.displayName;
+            console.log(user.displayName);
             // Just retrieve the image without altering "/cap" state
             onValue(databaseRef(database, `/${idDevice}/img_config`), (imgSnapshot) => {
                 if (imgSnapshot.exists() && imgSnapshot.val() != null) {
@@ -181,10 +191,21 @@ TakePhoto.addEventListener('click', function() {
                     console.log("Insensity found.");
                 }
             });
-            
+
+            onValue(databaseRef(database, `${encodedEmail}/devices`), (snapshot) => {
+                const devices = snapshot.val(); // Các thiết bị của người dùng
+                if (devices && devices[idDevice]) { // Kiểm thiết bị có tồn tại không
+        
+                  id_st.innerText = "ID: " + idDevice + " - " + `${devices[idDevice]}`;
+                //   handleIdDeviceUpdate(idDevice); //cập nhật thông tin thiết bị
+                } else {
+                  alert("Device not found.");
+                }
+            });
+
             onValue(databaseRef(database, `/${idDevice}/SSI`), (ssi) => {
                 let ssiData = ssi.val();
-                console.log(ssiData);
+                // console.log(ssiData);
             
                 if (ssi.exists() && ssiData !== null) {
                     // Kiểm tra mức độ tín hiệu và thay đổi biểu tượng wifi
@@ -209,20 +230,22 @@ TakePhoto.addEventListener('click', function() {
         }
     });
 
-onAuthStateChanged(auth, (user) => {  
-    if (user) {
-        encodedEmail = encodeURIComponent(user.email.replace(/[.@]/g, '_'));
-        onValue(databaseRef(database, `${encodedEmail}/avt_img`), (snapshot) => {
-        if(snapshot.val()!=null){
-            avtUser1.src = snapshot.val();
-        }
-        });
-        nameuser1.innerHTML = user.displayName;
-        console.log(user.displayName);
-    }
-});
 document.addEventListener('DOMContentLoaded', function() {
     updateLinkHrefs(pageLinks_w, currentUrl, idDevice, idDevice);
+    // Gửi yêu cầu POST
+    fetch('https://nodejs-api-6kz9.onrender.com/ping', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',  // Đảm bảo rằng dữ liệu gửi đi là JSON
+        }
+    })
+    .then(response => response.json())  // Chuyển phản hồi từ server thành JSON
+    .then(responseData => {
+        console.log('POST Response:', responseData);  // Hiển thị phản hồi từ server
+    })
+    .catch(error => {
+        console.error('Error with POST:', error);  // Xử lý lỗi nếu có
+    });
 });
 // Hàm vẽ ảnh với góc quay và cập nhật kích thước canvas
 function drawImageWithRotation() {

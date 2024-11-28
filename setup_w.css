@@ -288,9 +288,9 @@ main .analyse .avt #avt_user{
     /* width: 10rem;
     height: 10rem; */
 }
-/* main .analyse .avt #file{
-    display: none;
-} */
+
+
+
 main .analyse .avt #uploadbtn{
     position: absolute;
     height: 35px;
